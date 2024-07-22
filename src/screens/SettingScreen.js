@@ -127,20 +127,25 @@ const SettingScreen = ({ navigation }) => {
                             value={isEnabledVideo}
                         />
                     </View>
-                    <Pressable
-                        onPress={() => navigation.navigate('Payout')}
-                        style={[styles.bodyPressableItemContainer, { marginTop: 10 }]}
-                    >
-                        <View style={styles.bodyPressableItemImg}>
-                            <Image
-                                source={require('../assets/images/payout.png')}
-                                style={{height: 30, width: 30}}
-                            />
-                        </View>
-                        <Text style={styles.bodyPressableItemTxt}>
-                            Your Payouts
-                        </Text>
-                    </Pressable>
+
+                    {user?.gender === 'female' ? 
+                        <Pressable
+                            onPress={() => navigation.navigate('Payout')}
+                            style={[styles.bodyPressableItemContainer, { marginTop: 10 }]}
+                        >
+                            <View style={styles.bodyPressableItemImg}>
+                                <Image
+                                    source={require('../assets/images/payout.png')}
+                                    style={{height: 30, width: 30}}
+                                />
+                            </View>
+                            <Text style={styles.bodyPressableItemTxt}>
+                                Your Payouts
+                            </Text>
+                        </Pressable> : 
+                        <></>
+                    }
+
                     <View style={[styles.bodyPressableItemContainer, { justifyContent: 'space-between', marginTop: 10 }]}>
                         <View style={styles.bodyPressableItemImg}>
                             <Image
