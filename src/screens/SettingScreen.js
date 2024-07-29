@@ -78,11 +78,11 @@ const SettingScreen = ({ navigation }) => {
                 </TouchableOpacity>
                 <Text style={styles.heading}>Settings</Text>
                 <Pressable
-                    onPress={() => navigation.navigate('Package')}
+                    onPress={() => user?.gender === "male" ? navigation.navigate('Package') : console.log('Buy Coin')}
                     style={{ flexDirection: 'row' }}
                 >
                     <Image
-                        source={require('../../assets/icons/coin.png')}
+                        source={require('../assets/icons/coin.png')}
                         style={styles.logo}
                     />
                     <View>
@@ -112,11 +112,11 @@ const SettingScreen = ({ navigation }) => {
                     <View style={[styles.bodyPressableItemContainer, { justifyContent: 'space-between', marginTop: 10 }]}>
                         <View style={styles.bodyPressableItemImg}>
                             <Image
-                                source={require('../../assets/images/video.png')}
+                                source={require('../assets/images/video.png')}
                                 style={{height: 30, width: 30}}
                             />
                         </View>
-                        <Text style={styles.bodyPressableItemTxt}>
+                        <Text style={[styles.bodyPressableItemTxt, { width: '70%' }]}>
                             Video Chat
                         </Text>
                         <Switch
@@ -153,7 +153,7 @@ const SettingScreen = ({ navigation }) => {
                                 style={{ height: 30, width: 30 }}
                             />
                         </View>
-                        <Text style={styles.bodyPressableItemTxt}>
+                        <Text style={[styles.bodyPressableItemTxt, { width: '70%' }]}>
                             Notification Settings
                         </Text>
                         <Switch
@@ -290,7 +290,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: '#ffffff',
         fontWeight: '600',
-        fontFamily: 'Poppins',
+        fontFamily: 'Poppins-Regular',
     },
     logo: {
         width: 20,

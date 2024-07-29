@@ -27,16 +27,16 @@ const MemberProfileScreen = ({ navigation, route }) => {
     const { user } = useAuthentication();
     const data = route?.params?.data;
     const width = Dimensions.get('window').width;
-    const imagePlaceHolder = 'https://t3.ftcdn.net/jpg/03/45/05/92/360_F_345059232_CPieT8RIWOUk4JqBkkWkIETYAkmz2b75.jpg';
 
     const createChat = () => {
         setShowIndicator(true);
-        letsLinkAPI('user/createChat', { user: user._id, other: data?._id })
+        letsLinkAPI('user/createChat', { user: user._id, other: data?._id }, "post")
             .then(async(res) => {
                 setShowIndicator(false);
                 navigation.navigate('Chat', { data: res.data.data });
             })
             .catch(async(e) => {
+                setShowIndicator(false);
                 console.log(e);
             });
     };
@@ -61,7 +61,7 @@ const MemberProfileScreen = ({ navigation, route }) => {
                         style={styles.menuIconContainer}
                     >
                         <Image
-                            source={require('../../assets/icons/edit.png')}
+                            source={require('../assets/icons/edit.png')}
                             style={styles.menuIcon}
                         />
                     </TouchableOpacity>
@@ -83,7 +83,7 @@ const MemberProfileScreen = ({ navigation, route }) => {
                             width: 140,
                             borderRadius: radius,
                             alignSelf: 'center',
-                            borderWidth: bw,
+                            borderWidth: borderWidth,
                             borderColor: '#6515AC',
                             marginTop: 10,
                             }}

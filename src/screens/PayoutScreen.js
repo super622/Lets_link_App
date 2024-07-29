@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     totalPayoutLabel: {
         color: 'black',
         fontSize: 20,
-        fontFamily: 'Poppins-SemiBlod'
+        fontFamily: 'Poppins-SemiBold'
     },
     totalPayoutValue: {
         color: 'rgba(101, 21, 172, 1)',

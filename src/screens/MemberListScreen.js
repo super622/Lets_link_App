@@ -22,7 +22,7 @@ const MemberListScreen = ({ navigation }) => {
         React.useCallback(() => {
             userSocket.initializeSocket();
             setMemberList([]);
-            letsLinkAPI('user/getAll', {}, 'post')
+            letsLinkAPI('user/getAll', {}, 'get')
                 .then(async(res) => {
                     if (res.data.status == 'success') {
                         const arr = res.data.data.filter(item => {
@@ -57,11 +57,11 @@ const MemberListScreen = ({ navigation }) => {
                 </TouchableOpacity>
                 <Text style={styles.heading}>Let’s Chat </Text>
                 <Pressable 
-                    onPress={()=> navigation.navigate('Package')} 
+                    onPress={()=> user?.gender === "male" ? navigation.navigate('Package') : console.log('Buy Coin')} 
                     style={{ flexDirection: 'row' }}
                 >
                     <Image
-                        source={require('../../assets/icons/coin.png')}
+                        source={require('../assets/icons/coin.png')}
                         style={styles.logo}
                     />
                     <Pressable >

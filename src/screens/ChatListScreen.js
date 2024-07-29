@@ -5,6 +5,7 @@ import {
     View,
     Image,
     FlatList,
+    Pressable,
     TouchableOpacity,
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -43,22 +44,19 @@ const ChatListScreen = ({ navigation }) => {
                     />
                 </TouchableOpacity>
                 <Text style={styles.headerTitle}>Chats</Text>
-                <View style={{flexDirection: 'row'}}>
+                <Pressable 
+                    onPress={()=> user?.gender === "male" ? navigation.navigate('Package') : console.log('Buy Coin')} 
+                    style={{ flexDirection: 'row' }}
+                >
                     <Image
                         source={require('../assets/icons/coin.png')}
                         style={styles.logo}
                     />
-                    <View>
-                        <Text
-                            style={[styles.headerTitle, { fontSize: 14, fontFamily: 'Poppins-Regular' }]}>
-                            {user?.coins ? user?.coins : '0'}
-                        </Text>
-                        <Text
-                            style={[styles.headerTitle, {fontSize: 14, fontFamily: 'Poppins-Regular' }]}>
-                            Coins
-                        </Text>
-                    </View>
-                </View>
+                    <Pressable >
+                        <Text style={[styles.heading, { fontSize: 14 }]}>{user?.coins ? user?.coins : '0'}</Text>
+                        <Text style={[styles.heading, { fontSize: 14 }]}>Coins</Text>
+                    </Pressable>
+                </Pressable>
             </View>
             <View style={styles.listContainer}>
                 <FlatList
@@ -68,7 +66,7 @@ const ChatListScreen = ({ navigation }) => {
                             return (
                                 <>
                                     {item?.blockedBy?.map(e => {
-                                        if (e === userdata?._id) {
+                                        if (e === user?._id) {
                                             return null;
                                         } else {
                                             return (
@@ -173,6 +171,11 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         fontFamily: 'Poppins-Regular',
         color: '#ffffff'
+    },
+    heading: {
+        fontSize: 18,
+        color: '#ffffff',
+        fontFamily: 'Poppins-Medium'
     },
     logo: {
         width: 20,

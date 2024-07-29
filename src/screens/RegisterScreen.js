@@ -23,7 +23,7 @@ import { letsLinkAPI } from '../utility/api';
 import { useAuthentication } from '../contexts/AuthContexts';
 import { theme } from '../assets/theme';
 
-const RegisterScreen = ({navigation}) => {
+const RegisterScreen = ({ navigation }) => {
     const [showIndicator, setShowIndicator] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -31,7 +31,7 @@ const RegisterScreen = ({navigation}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [cpassword, setCPassword] = useState('');
-    const [gender, setGender] = useState('');
+    const [gender, setGender] = useState('male');
     const [image, setImage] = useState({});
     const [birthDay, setBirthDay] = useState('');
     const [idCardFront, setIdCardFront] = useState({});
@@ -41,22 +41,22 @@ const RegisterScreen = ({navigation}) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const { height } = Dimensions.get('window');
     const { colors } = theme;
-  
+
     const showDatePicker = () => {
         setDatePickerVisibility(true);
     };
-  
+
     const hideDatePicker = () => {
         setDatePickerVisibility(false);
     };
-  
+
     const handleConfirm = date => {
         let newdate = moment(date).format('DD-MM-YYYY');
         setBirthDay(newdate);
         hideDatePicker();
     };
 
-    const onClickImagePicker = async() => {
+    const onClickImagePicker = async () => {
         const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (permissionResult.granted == false) {
             alert("You've refused to allow this app to access your photos!");
@@ -71,7 +71,7 @@ const RegisterScreen = ({navigation}) => {
         if (!pickerResult.canceled) {
             const croppedImage = await ImageManipulator.manipulateAsync(
                 pickerResult.assets[0].uri,
-                [{ resize: { width: pickerResult.assets[0].width, height: pickerResult.assets[0].height }}],
+                [{ resize: { width: pickerResult.assets[0].width, height: pickerResult.assets[0].height } }],
                 { compress: 1, format: ImageManipulator.SaveFormat.PNG }
             );
             setShowModal(false);
@@ -100,7 +100,7 @@ const RegisterScreen = ({navigation}) => {
         }
     };
 
-    const takePhotoFromCamera = async() => {
+    const takePhotoFromCamera = async () => {
         const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
 
         if (permissionResult.granted == false) {
@@ -116,7 +116,7 @@ const RegisterScreen = ({navigation}) => {
         if (!pickerResult.canceled) {
             const croppedImage = await ImageManipulator.manipulateAsync(
                 pickerResult.assets[0].uri,
-                [{ resize: { width: pickerResult.assets[0].width, height: pickerResult.assets[0].height }}],
+                [{ resize: { width: pickerResult.assets[0].width, height: pickerResult.assets[0].height } }],
                 { compress: 1, format: ImageManipulator.SaveFormat.PNG }
             );
             setShowModal(false);
@@ -152,11 +152,11 @@ const RegisterScreen = ({navigation}) => {
         const monthDiff = today.getMonth() - birthDateObj.getMonth();
         let age = today.getFullYear() - birthDateObj.getFullYear();
         if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDateObj.getDate())) {
-            age --;
+            age--;
         }
         return age;
     };
-  
+
     const handleRegister = () => {
         if (Object.keys(image)?.length === 0) {
             Toast.show({
@@ -167,10 +167,10 @@ const RegisterScreen = ({navigation}) => {
             });
         } else if (!name) {
             Toast.show({
-            type: ALERT_TYPE.DANGER,
-            title: 'Error',
-            textBody: 'Please Enter UserName',
-            autoClose: 2000,
+                type: ALERT_TYPE.DANGER,
+                title: 'Error',
+                textBody: 'Please Enter UserName',
+                autoClose: 2000,
             });
         } else if (!email) {
             Toast.show({
@@ -252,7 +252,7 @@ const RegisterScreen = ({navigation}) => {
             };
 
             letsLinkAPI('user/uploadImage', formdata, 'post', header)
-                .then(async(res) => {
+                .then(async (res) => {
                     if (res.data.length > 0) {
                         let avatar = res.data[0].url;
                         if (gender == 'male') {
@@ -266,7 +266,7 @@ const RegisterScreen = ({navigation}) => {
                             };
 
                             letsLinkAPI('user/register', data, 'post')
-                                .then(async(res) => {
+                                .then(async (res) => {
                                     setShowIndicator(false);
                                     if (res.data.status == 'success') {
                                         Toast.show({
@@ -286,7 +286,7 @@ const RegisterScreen = ({navigation}) => {
                                         });
                                     }
                                 })
-                                .catch(async(e) => {
+                                .catch(async (e) => {
                                     setShowIndicator(false);
                                     Toast.show({
                                         type: ALERT_TYPE.DANGER,
@@ -328,7 +328,7 @@ const RegisterScreen = ({navigation}) => {
                             });
 
                             letsLinkAPI('user/uploadImage', formdata1, 'post', header)
-                                .then(async(res) => {
+                                .then(async (res) => {
                                     setShowIndicator(false);
                                     if (res.data.length > 0) {
                                         const id_front = res.data[0].url;
@@ -345,7 +345,7 @@ const RegisterScreen = ({navigation}) => {
                                         };
 
                                         letsLinkAPI('user/register', data, 'post')
-                                            .then(async(res) => {
+                                            .then(async (res) => {
                                                 setShowIndicator(false);
                                                 if (res.data.status == "success") {
                                                     Toast.show({
@@ -365,7 +365,7 @@ const RegisterScreen = ({navigation}) => {
                                                     });
                                                 }
                                             })
-                                            .catch(async(e) => {
+                                            .catch(async (e) => {
                                                 setShowIndicator(false);
                                                 Toast.show({
                                                     type: ALERT_TYPE.DANGER,
@@ -392,7 +392,7 @@ const RegisterScreen = ({navigation}) => {
                     Toast.show({
                         type: ALERT_TYPE.DANGER,
                         title: 'Error',
-                        textBody: err.response?.data?.message? err.response?.data?.message : "Network Error",
+                        textBody: err.response?.data?.message ? err.response?.data?.message : "Network Error",
                         autoClose: 2000
                     });
                 });
@@ -421,7 +421,7 @@ const RegisterScreen = ({navigation}) => {
                     <Image
                         source={
                             Object.keys(image).length > 0
-                                ? {uri: image?.uri}
+                                ? { uri: image?.uri }
                                 : require('../assets/images/dummy.jpeg')
                         }
                         style={styles.avatar}
@@ -430,7 +430,7 @@ const RegisterScreen = ({navigation}) => {
                         <AntDesign name="edit" color={'white'} size={18} />
                     </View>
                 </Pressable>
-                <View style={{margin: 20}}>
+                <View style={{ margin: 20 }}>
                     <Text
                         variant="titleLarge"
                         style={styles.textLabel}
@@ -439,7 +439,7 @@ const RegisterScreen = ({navigation}) => {
                     </Text>
                     <TextInput
                         value={name}
-                        onChangeText={e => setusername(e)}
+                        onChangeText={e => setName(e)} // Updated
                         placeholder="@jhon"
                         style={styles.textFeild}
                         placeholderTextColor={colors.placeHolderTextColor}
@@ -498,7 +498,7 @@ const RegisterScreen = ({navigation}) => {
                         style={styles.genderButtonContainer}
                     >
                         <Text style={styles.genderButtonTxt}>
-                            {birthDay ? birthDay :"22-08-1991"} 
+                            {birthDay ? birthDay : "22-08-1991"}
                         </Text>
                     </Pressable>
                     <DateTimePickerModal
@@ -634,7 +634,7 @@ const RegisterScreen = ({navigation}) => {
                         variant="titleMedium"
                         style={{ color: 'black', fontFamily: 'Poppins-Medium' }}
                     >
-                        Already have an account?{' '}<Text style={{ color: theme.colors.button_color, fontFamily: 'Poppins-SemiBold' }}>Login</Text> 
+                        Already have an account?{' '}<Text style={{ color: theme.colors.button_color, fontFamily: 'Poppins-SemiBold' }}>Login</Text>
                     </Text>
                 </TouchableOpacity>
             </ScrollView>
@@ -654,7 +654,7 @@ const RegisterScreen = ({navigation}) => {
                         height: (height / 100) * 100,
                         backgroundColor: '#70707070',
                     }}
-                    onPress={() => setexitVisible2(!exitVisible2)}
+                    onPress={() => setShowModal(false)}
                 >
                     <View style={styles.modalContainer}>
                         <View style={styles.modalButtonContainer}>
@@ -860,5 +860,5 @@ const styles = StyleSheet.create({
         fontFamily: 'Poppins-Regular'
     }
 });
-  
+
 export default RegisterScreen;

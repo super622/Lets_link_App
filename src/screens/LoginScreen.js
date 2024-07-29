@@ -31,11 +31,11 @@ const LoginScreen = ({ navigation }) => {
                 textBody: 'Please Enter Email',
                 autoClose: 2000,
             });
-        } else if (!emailRegex.text(email)) {
+        } else if (!emailRegex.test(email)) {
             Toast.show({
                 type: ALERT_TYPE.DANGER,
                 title: 'Error',
-                textBody: 'Please Enter Password',
+                textBody: 'Please Enter Valid Email',
                 autoClose: 2000,
             });
         } else if (!password) {
@@ -51,7 +51,7 @@ const LoginScreen = ({ navigation }) => {
                 .then(async(res) => {
                     setShowIndicator(false);
                     if (res.data.status === 'success') {
-                        setUser(res.data);
+                        setUser(res.data.data);
                         Toast.show({
                             type: ALERT_TYPE.SUCCESS,
                             title: 'Success',
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
         color: '#000000',
         padding: 10,
         paddingBottom: 0,
-        fontFamily: 'Poppins-medium',
+        fontFamily: 'Poppins-Medium',
     },
     textFeild: {
         height: 50,

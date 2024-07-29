@@ -250,6 +250,7 @@ const ProfileScreen = ({ navigation }) => {
             setUploadImages([]);
             handleRemove(0);
             getImages();
+            console.log(user);
         }, []),
     );
 
@@ -548,17 +549,17 @@ const ProfileScreen = ({ navigation }) => {
                 <View style={styles.header}>
                     <TouchableOpacity
                         onPress={() => {
-                            navigation.navigate('setting');
+                            navigation.navigate('Setting');
                         }}
                     >
                         <Ionicons name="settings-outline" color={'white'} size={24} />
                     </TouchableOpacity>
                     <Pressable
-                        onPress={() => navigation.navigate('Package')}
+                        onPress={() => user?.gender === "male" ? navigation.navigate('Package') : console.log('Buy Coin')}
                         style={{ flexDirection: 'row' }}
                     >
                         <Image
-                            source={require('../../assets/icons/coin.png')}
+                            source={require('../assets/icons/coin.png')}
                             style={styles.logo}
                         />
                         <View>
@@ -609,7 +610,7 @@ const ProfileScreen = ({ navigation }) => {
                         {user?.userName}
                     </Text>
                     <Text style={[styles.heading, { alignSelf: 'center', fontSize: 12, color: '#797C7B' }]}>
-                        @{userdata?.userName}
+                        @{user?.userName}
                     </Text>
                 </View>
             </View>
