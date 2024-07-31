@@ -506,6 +506,7 @@ const RegisterScreen = ({ navigation }) => {
                         mode="date"
                         onConfirm={handleConfirm}
                         onCancel={hideDatePicker}
+                        date={new Date("1991-08-22")}
                     />
                     <Text
                         variant="titleLarge"
