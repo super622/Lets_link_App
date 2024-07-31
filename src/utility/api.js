@@ -1,6 +1,6 @@
 import axios from "axios";
+import { API_URL } from '@env';
 
-export const BASE_API_URL = 'http://178.63.104.183:4000/';
 export const letsLinkAPI = (url, data, method, header = "", token = "", timeout = 20000) => {
     if (!header) {
         header = {
@@ -9,7 +9,7 @@ export const letsLinkAPI = (url, data, method, header = "", token = "", timeout 
 
         return axios({
             method: method,
-            url: BASE_API_URL + url,
+            url: API_URL + url,
             data: data,
             headers: header,
             timeout: timeout,
@@ -18,7 +18,7 @@ export const letsLinkAPI = (url, data, method, header = "", token = "", timeout 
     } else {
         return axios({
             method: method,
-            url: BASE_API_URL + url,
+            url: API_URL + url,
             data,
             headers: header,
             timeout: timeout,

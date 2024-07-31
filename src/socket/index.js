@@ -1,11 +1,10 @@
 import io from 'socket.io-client';
-
-const SOCKET_URL = 'http://178.63.104.183:4000';
+import { API_URL } from '@env';
 
 class WSService {
     initializeSocket = async() => {
         try {
-            this.socket = io(SOCKET_URL, {
+            this.socket = io(API_URL, {
                 transports: ['websocket'],
             });
             this.socket.on('connect', data => {

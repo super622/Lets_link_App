@@ -27,9 +27,9 @@ const MemberListScreen = ({ navigation }) => {
                     if (res.data.status == 'success') {
                         const arr = res.data.data.filter(item => {
                             if (user?.gender == 'male') {
-                                return item?.gender === 'female' && item?.status === 'approved';
+                                return item?.gender === 'female' && (item?.status === "online" || item?.status === "recently online");
                             } else {
-                                return item?.gender === 'male' && item?.status === 'approved';
+                                return item?.gender === 'male' && (item?.status === "online" || item?.status === "recently online");
                             }
                         });
                         setMemberList(arr);
@@ -89,7 +89,7 @@ const MemberListScreen = ({ navigation }) => {
                                             uri: item?.image ? item?.image : null,
                                         }}
                                     />
-                                    <View style={styles.statusIcon}></View>
+                                    <View style={[styles.statusIcon, item?.status === "online" ? { backgroundColor: '#0FE16D' } : { backgroundColor: '#997000' }]}></View>
                                 </View>
                                 <Text style={styles.listitemTxt}>
                                     {item?.userName}
@@ -160,8 +160,7 @@ const styles = StyleSheet.create({
         height: 15,
         bottom: 5,
         right: 10,
-        borderRadius: 50,
-        backgroundColor: '#0FE16D'
+        borderRadius: 50
     },
     listitemTxt: {
         marginTop: 10,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -13,6 +13,7 @@ import { ALERT_TYPE, Toast } from 'react-native-alert-notification';
 import { letsLinkAPI } from '../utility/api';
 import Loader from '../components/Loader';
 import { useAuthentication } from '../contexts/AuthContexts';
+import userSocket from '../socket';
 
 const LoginScreen = ({ navigation }) => {
     const [showIndicator, setShowIndicator] = useState(false);
@@ -22,6 +23,10 @@ const LoginScreen = ({ navigation }) => {
     const { setUser } = useAuthentication();
     const { height } = Dimensions.get('window');
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    useEffect(() => {
+        userSocket.initializeSocket();
+    }, []);
 
     const handleLogin = () => {
         if (!email) {
@@ -58,6 +63,7 @@ const LoginScreen = ({ navigation }) => {
                             textBody: res.data.message,
                             autoClose: 2000,
                         });
+                        userSocket.emit('userOnline', res.data.data?._id);
                         navigation.navigate('Home');
                     } else {
                         Toast.show({
